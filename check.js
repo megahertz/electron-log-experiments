@@ -14,15 +14,16 @@ async function main() {
   const logPath = log.transports.file.getFile().path;
   const stat = await checkLogFile(logPath);
 
-  if (stat.main.corrupted.length > 0) {
-    log.warn('Corrupted records (main):', stat.main);
-  }
+  let ok = true;
+  Object.values(stat).forEach((value) => {
+    const name = value.name === 'rend' ? 'renderer' : value.name;
+    if (value.corrupted.length > 0) {
+      ok = false;
+      log.warn(`Corrupted records (${name}):`, value);
+    }
+  });
 
-  if (stat.renderer.corrupted.length > 0) {
-    log.warn('Corrupted records (renderer):', stat.renderer);
-  }
-
-  if (stat.main.corrupted.length < 1 && stat.renderer.corrupted.length < 1) {
+  if (ok) {
     log.info('Check: OK');
   } else {
     log.error('Check: Failed');
@@ -33,6 +34,10 @@ async function main() {
   log.info('Size:', formatSize(fs.statSync(logPath).size));
 }
 
+/**
+ * @param {string} filePath
+ * @return {Promise<Object<string, object>>}
+ */
 async function checkLogFile(filePath) {
   const stat = {};
   const reader = readline.createInterface({

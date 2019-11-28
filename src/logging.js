@@ -17,7 +17,11 @@ function writeLogData(name = 'none', count = null, size = null) {
   log.transports.file.format = '{iso} {text}';
 
   const char = name[0];
+  const digits = count.toString(10).length;
+
   for (let i = 0; i < count; i++) {
-    log.info(`${name}-${(i + 1)}-${char.repeat(size)}`);
+    const index = (i + 1).toString(10).padStart(digits, '0');
+    const data = char.repeat(size);
+    log.info(`${name}-${index}-${data}`);
   }
 }
