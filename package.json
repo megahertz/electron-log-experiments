@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Temporary repository for experiments with electron-log",
   "private": true,
+  "license": "MIT",
   "main": "src/main.js",
   "scripts": {
     "start:app": "electron .",
