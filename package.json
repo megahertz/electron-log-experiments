@@ -1,0 +1,18 @@
+{
+  "name": "electron-log-experiments",
+  "version": "1.0.0",
+  "description": "Temporary repository for experiments with electron-log",
+  "private": true,
+  "main": "src/main.js",
+  "scripts": {
+    "start:app": "electron .",
+    "start:check": "node check.js",
+    "start": "npm run start:app && npm run start:check"
+  },
+  "devDependencies": {
+    "electron": "*"
+  },
+  "dependencies": {
+    "electron-log": "^4.0.0-beta.5"
+  }
+}
