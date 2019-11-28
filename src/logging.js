@@ -15,7 +15,6 @@ function writeLogData(name = 'none', count = null, size = null) {
   log.transports.file.maxSize = 0;
   log.transports.file.fileName = 'main.log';
   log.transports.file.format = '{iso} {text}';
-  log.transports.file.getFile().clear();
 
   const char = name[0];
   for (let i = 0; i < count; i++) {

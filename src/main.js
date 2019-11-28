@@ -1,6 +1,7 @@
 'use strict';
 
 const { app, BrowserWindow, ipcMain } = require('electron');
+const log = require('electron-log');
 const path = require('path');
 const writeLogData = require('./logging').writeLogData;
 
@@ -24,6 +25,8 @@ function onReady() {
 
   win.hide();
   win.loadURL('file://' + path.join(__dirname, 'index.html'));
+
+  log.transports.file.getFile().clear();
 
   ipcMain.on('renderer-started', () => {
     writeLogData('main');
